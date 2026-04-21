@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+<meta charset="UTF-8">
+<title>Secret ❤️</title>
+
+<style>
+body {
+    margin: 0;
+    background: black;
+    font-family: Arial;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+}
+
+#login {
+    margin-top: 20%;
+}
+
+input {
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 20px;
+    border-radius: 25px;
+    border: none;
+    background: red;
+    color: white;
+    cursor: pointer;
+}
+
+#main {
+    display: none;
+}
+
+h1 {
+    font-size: 45px;
+    margin-top: 15%;
+}
+
+/* صورة (بدون مشاكل clip-path) */
+#photo {
+    display: none;
+    width: 260px;
+    height: 260px;
+    margin: 20px auto;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%; /* دايرة بدل قلب عشان يشتغل في كل الأجهزة */
+    box-shadow: 0 0 30px red;
+}
+
+#message {
+    display: none;
+    font-size: 26px;
+}
+
+.heart {
+    position: absolute;
+    color: red;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    from {transform: translateY(-10vh);}
+    to {transform: translateY(100vh);}
+}
+</style>
+</head>
+
+<body>
+
+<div id="login">
+    <h2>للي فاكرة كل حاجة بينا 😏❤️</h2>
+    <input type="password" id="pass">
+    <br><br>
+    <button onclick="checkPass()">دخول</button>
+</div>
+
+<div id="main">
+    <h1>هدير ❤️</h1>
+    <button onclick="startSurprise()">اضغطي هنا 😍</button>
+
+    <div id="photo"></div>
+    <div id="message"></div>
+
+    <audio id="song" loop>
+        <source src="song.mp3" type="audio/mpeg">
+    </audio>
+</div>
+
+<script>
+
+const correctPass = "dida 17/7/2008";
+
+function checkPass() {
+    const input = document.getElementById("pass").value.trim();
+    if (input === correctPass) {
+        document.getElementById("login").style.display = "none";
+        document.getElementById("main").style.display = "block";
+    } else {
+        alert("غلط 😏");
+    }
+}
+
+function startSurprise() {
+
+    // تشغيل الأغنية (مع معالجة الخطأ)
+    const song = document.getElementById("song");
+    song.play().catch(()=>{});
+
+    // الصورة
+    const photo = document.getElementById("photo");
+    photo.style.display = "block";
+    photo.style.backgroundImage = "url('photo.jpg')";
+
+    // الرسالة
+    const msg = document.getElementById("message");
+    msg.style.display = "block";
+    msg.innerHTML = "بحبك يا هدير ❤️";
+
+    // قلوب
+    setInterval(()=>{
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = "❤️";
+        heart.style.left = Math.random()*100+"vw";
+        heart.style.animationDuration = "3s";
+        document.body.appendChild(heart);
+        setTimeout(()=>heart.remove(),4000);
+    },300);
+}
+
+</script>
+
+</body>
+</html>
